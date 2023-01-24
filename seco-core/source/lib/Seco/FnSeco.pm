@@ -10,6 +10,7 @@ use Fcntl;
 use POSIX qw(:errno_h);
 use Carp;
 use LWP::Simple;
+use URL::Encode qw(url_encode);
 
 # Daniel Muino's better range expander
 #use Seco::Range qw/expand_range range_set_altpath/;
@@ -48,7 +49,7 @@ require Exporter;
 sub expand_range {
     my ($range) = @_;
     my $server = 'localhost';
-    return map { split /\n/, get("http://$server:9998/range/list?$_") } $range; 
+    return map { split /\n/, get("http://$server:9998/range/list?" . url_encode($_)) } $range; 
 }
 
 sub range_set_altpath {
