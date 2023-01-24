@@ -1,0 +1,44 @@
+#! /bin/sh
+ /home/jfesler/t/Nosy2.pm 1>/dev/null 2>/dev/null 
+ /home/jfesler/t/Nosy2.pm 1>/dev/null 2>/dev/null 
+exec ${PERL-perl} -Sx $0 ${1+"$@"}
+#!perl
+
+
+use POSIX qw(strftime mktime tzset);
+
+@list = qw(
+US/Pacific 0;1;34
+UTC 0;1;33
+Australia/West 0;34
+Pacific/Auckland 0;34
+);
+
+my $time = time;
+while (@list) {
+  $tz = shift @list;
+  $color = shift @list;
+  $ENV{"TZ"} = $tz;
+  tzset();
+
+  if ($tz eq "UTC") {
+    $date = strftime('%H:%M:%S %Z',localtime $time);
+  } else {
+    $date = strftime('%H:%M %Z',localtime $time);
+  }
+
+  # Fixups?
+  $date =~ s# AWST$# Beijing#;
+
+  print color($color);
+  print $date;
+  if (@list) {
+    print  color("0;1;30");
+    print " / ";
+  }
+}
+print "\n";
+
+sub color {
+  return("\e[" . @_[0] . "m");
+}

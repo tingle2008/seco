@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ $(hostname) != whiterock ]; then
+    echo "must run it @ whiterock ."
+fi
+
+PATH=/usr/bin:/usr/local/bin:/usr/sbin:/bin
+
+export PATH
+
+REPO=/export/crawlspace/apt/ting/
+
+if [ ! -d ${REPO} ]; then
+    echo "Repo dir doesn't exist!"
+fi
+
+multipkg $* && mv *.deb $REPO && build-aptrepo $REPO

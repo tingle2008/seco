@@ -1,0 +1,12 @@
+---
+default:
+  name: seco-core
+  summary: Seco core modules. pure perl Seco::Range 
+  perl: /usr/bin/perl
+  version: '1.0.0'
+  p4rel: 1
+
+
+deb:
+  requires: 
+    - libclass-accessor-perl

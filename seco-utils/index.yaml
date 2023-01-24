@@ -1,0 +1,12 @@
+---
+default:
+  name: seco-utils
+  perl: /usr/bin/perl
+  summary: miscellaneous seco utils for ops
+  version: '1.0.1'
+  p4rel: 1
+  requires: 
+    - seco-core
+    - multipkg
+
+
